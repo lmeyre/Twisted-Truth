@@ -6,8 +6,10 @@ public class Player : MonoBehaviour
 {
     public static Player instance;
     public FlashLight flashLight;
+    public GameObject enemiesHolder;
 
     float speed = 5f;
+    [HideInInspector]public Transform checkPoint;
 
     [HideInInspector]public bool active = true;// if can move hit, use light etc
     Rigidbody2D rb2D;
@@ -50,7 +52,12 @@ public class Player : MonoBehaviour
 
     public void OnDeath()
     {
-        
+        flashLight.battery = flashLight.startingBattery;
+        transform.position = checkPoint.position;
+        foreach(Enemy enemy in enemiesHolder.transform.GetComponentsInChildren<Enemy>())
+        {
+            enemy.angry = false;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -60,5 +67,7 @@ public class Player : MonoBehaviour
             Destroy(col.gameObject);
             flashLight.CellPickUp();
         }
+        else if (col.gameObject.tag == "CheckPoint")
+            checkPoint = col.transform;
     }
 }

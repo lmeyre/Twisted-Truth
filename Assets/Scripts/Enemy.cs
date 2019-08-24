@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public bool onCeiling;
 
     [HideInInspector]public bool attacking;
-    bool angry;
+    [HideInInspector]public bool angry;
     float hp = 30;
     float stunDuration = 5f;
 
@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
     {
         if (!angry && Vector2.Distance(transform.position, player.transform.position) <= aggroRange)
             angry = true;
-        if (angry)
+        if (angry && !stunned)
             Aggro();
     }
 
@@ -44,9 +44,11 @@ public class Enemy : MonoBehaviour
             if (other.gameObject.Equals(flashLight.gameObject) && !flashLight.Focusing)// si c'est la flashlight on verifie si elle est focus sinon ca marche direct
             {
                 if (!angry && aggroOnBaseLight)
-                    angry = true;
+                    angry = true;// si c'est la lampe, qu'elle focus pas et qu'on a un mob qui aggro sur baselight
                 return ;
             }
+            if (!angry)
+                angry = true;
             Color col = img.color;
             img.color = new Color(col.r, col.g, col.b, col.a += 0.0075f);
         }
@@ -58,7 +60,8 @@ public class Enemy : MonoBehaviour
     {
         if (onCeiling)
         {
-            DropOnGround();
+            rb2D.velocity = Vector2.zero;
+            rb2D.AddForce(Vector2.down * 10, ForceMode2D.Impulse);
             return;
         }
         if (Vector2.Distance(transform.position, player.transform.position) < 1)
@@ -70,7 +73,7 @@ public class Enemy : MonoBehaviour
     void Charge()
     {
         rb2D.velocity = new Vector2(0, rb2D.velocity.y);
-        float move = 1;
+        float move = 4;
         if (player.transform.position.x < transform.position.x)
             move  *= -1;
         rb2D.AddForce(Vector2.right * move  * 60f * Time.deltaTime, ForceMode2D.Impulse);
@@ -87,6 +90,7 @@ public class Enemy : MonoBehaviour
     IEnumerator Stunning()
     {
         stunned = true;
+        rb2D.velocity = Vector2.zero;
         img.color = Color.red;
         float time = stunDuration;
         while (time > 0)
@@ -99,8 +103,19 @@ public class Enemy : MonoBehaviour
         img.color = new Color(img.color.r, img.color.g, img.color.b, 1);
     }
 
-    void DropOnGround()// To implement, surement une coroutine, et mettre on ceiling false qu'une fois qu'il a finit de tomber
+    void OnTriggerEnter2D(Collider2D col)
     {
+        if (col.tag == "Ground")
+        {
+            rb2D.velocity = new Vector2(0, 0);
+            onCeiling = false;
+            Debug.Log("hitting ground");
+        }
+    }
 
+    void OnDrawGizmosSelected ()
+	{
+		Gizmos.color = Color.yellow;
+		Gizmos.DrawWireSphere(transform.position, aggroRange);
     }
 }
