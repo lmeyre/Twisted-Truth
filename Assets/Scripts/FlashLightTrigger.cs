@@ -19,8 +19,8 @@ public class FlashLightTrigger : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        while (animator.GetComponent<PolygonCollider2D>() != null)
-            Destroy(animator.GetComponent<PolygonCollider2D>());
+        foreach(PolygonCollider2D col in animator.GetComponents<PolygonCollider2D>())
+            Destroy(col);
         animator.gameObject.AddComponent(typeof(PolygonCollider2D));
 
         FlashLight flashLight = animator.GetComponent<FlashLight>();

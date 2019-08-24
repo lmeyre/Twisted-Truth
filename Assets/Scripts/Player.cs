@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
     {
         flashLight.battery = flashLight.startingBattery;
         transform.position = checkPoint.position;
+        flashLight.Reset();
         foreach(Enemy enemy in enemiesHolder.transform.GetComponentsInChildren<Enemy>())
         {
             enemy.angry = false;

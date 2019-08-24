@@ -432,7 +432,7 @@ GameObject:
   - component: {fileID: 734412516}
   - component: {fileID: 734412515}
   - component: {fileID: 734412514}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -609,7 +609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1266035671}
   - component: {fileID: 1266035672}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Truth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,7 +695,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1861720836}
   - component: {fileID: 1861720835}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -777,7 +777,7 @@ GameObject:
   - component: {fileID: 1893365262}
   - component: {fileID: 1893365261}
   - component: {fileID: 1893365260}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Floor (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,6 +887,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CheckPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362308965836554037, guid: bd3677cf4a812ce4f83b21fd2e6cdec6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7720419755343011905, guid: bd3677cf4a812ce4f83b21fd2e6cdec6,
         type: 3}
@@ -1142,11 +1147,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 9107216698631144835, guid: 1c489312937c8534ab2ed8fa7a5af552,
-        type: 3}
-      propertyPath: enemiesHolder
-      value: 
-      objectReference: {fileID: 1007967683}
     - target: {fileID: 9107216698631144833, guid: 1c489312937c8534ab2ed8fa7a5af552,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1202,6 +1202,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9107216698631144835, guid: 1c489312937c8534ab2ed8fa7a5af552,
+        type: 3}
+      propertyPath: enemiesHolder
+      value: 
+      objectReference: {fileID: 1007967683}
     - target: {fileID: 5652201668864539365, guid: 1c489312937c8534ab2ed8fa7a5af552,
         type: 3}
       propertyPath: m_Sprite
@@ -1224,6 +1229,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 145298156447649116, guid: 1c489312937c8534ab2ed8fa7a5af552,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c489312937c8534ab2ed8fa7a5af552, type: 3}
