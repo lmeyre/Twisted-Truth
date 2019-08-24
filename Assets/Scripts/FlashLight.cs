@@ -48,7 +48,6 @@ public class FlashLight : MonoBehaviour
             Focusing = false;
             readyToStop = false;
         }
-        Debug.Log(AngleDeg);
         if (AngleDeg <= 85 && AngleDeg >= -95)
             player.head.flipX = false;
         else

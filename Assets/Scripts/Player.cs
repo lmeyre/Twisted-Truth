@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
     public FlashLight flashLight;
     public GameObject enemiesHolder;
     public SpriteRenderer head;
+    public Animator katana;
+
+    public Transform headIdle;
+    public Transform headRun;
 
     float speed = 5f;
     [HideInInspector]public Transform checkPoint;
@@ -37,6 +41,8 @@ public class Player : MonoBehaviour
         rb2D.velocity = new Vector2(rb2D.velocity.x / 10, rb2D.velocity.y);
         if (active)
             Move();
+        if (Input.GetMouseButtonDown(0))
+            Attack();
     }
 
     void Move()
@@ -44,16 +50,28 @@ public class Player : MonoBehaviour
         float movement = Input.GetAxis("Horizontal") * speed;
         if (movement < 0)
         {
-            sprite.flipX = true;
+            //sprite.flipX = true;
+            transform.localScale = new Vector3(-1, 1, 1);
+            flashLight.transform.localScale = new Vector3(-1, 1, 1);
+            head.transform.localScale = new Vector3(-1, 1, 1);
             animator.SetBool("Running", true);
+            head.transform.position = headRun.position;
         }
         else if (movement > 0)
         {
-            sprite.flipX = false;
+            //sprite.flipX = false;
+            transform.localScale = new Vector3(1, 1, 1);
+            head.transform.localScale = new Vector3(1, 1, 1);
+            flashLight.transform.localScale = new Vector3(1, 1, 1);
             animator.SetBool("Running", true);
+            head.transform.position = headRun.position;
         }
         else
+        {
             animator.SetBool("Running", false);
+            head.transform.position = headIdle.position;
+        }
+            
 
         rb2D.AddForce(Vector2.right * movement * 60f * Time.deltaTime, ForceMode2D.Impulse);
         //rb2D.MovePosition(rb2D.position  + Vector2.right * movement * Time.deltaTime);
@@ -88,4 +106,8 @@ public class Player : MonoBehaviour
             checkPoint = col.transform;
     }
 
+    void Attack()
+    {
+        katana.SetBool("Attacking", true);
+    }
 }
