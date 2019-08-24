@@ -18,6 +18,8 @@ public class FlashLight : MonoBehaviour
     SpriteRenderer sprite;
     [HideInInspector]public SpriteMask mask;
     Animator animator;
+    public PolygonCollider2D baseCol;
+    public PolygonCollider2D focusCol;
 
     void Awake()
     {
@@ -46,8 +48,13 @@ public class FlashLight : MonoBehaviour
             Focusing = false;
             readyToStop = false;
         }
-        if (GetComponent<PolygonCollider2D>().isTrigger == false)
-            GetComponent<PolygonCollider2D>().isTrigger = true;
+        Debug.Log(AngleDeg);
+        if (AngleDeg <= 85 && AngleDeg >= -95)
+            player.head.flipX = false;
+        else
+            player.head.flipX = true;
+        // if (GetComponent<PolygonCollider2D>().isTrigger == false)
+        //     GetComponent<PolygonCollider2D>().isTrigger = true;
     }
 
     public void FocusLight()
@@ -81,8 +88,11 @@ public class FlashLight : MonoBehaviour
     {
         sprite.sprite = baseLight;
         mask.sprite = baseLight;
-        Destroy(animator.GetComponent<PolygonCollider2D>());
-        animator.gameObject.AddComponent(typeof(PolygonCollider2D));
+        baseCol.enabled = true;
+        focusCol.enabled = false;
+        // Destroy(GetComponent<PolygonCollider2D>());
+        // gameObject.AddComponent(typeof(PolygonCollider2D));
+        // GetComponent<PolygonCollider2D>().isTrigger = true;
         mask.alphaCutoff = 0.0045f;
         crRunning = false;
     }

@@ -5,17 +5,21 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [HideInInspector] public bool stunned;
+    public int damage;
     public float aggroRange;
     public bool aggroOnBaseLight;
     public bool onCeiling;
 
-    [HideInInspector]public bool attacking;
     [HideInInspector]public bool angry;
     float hp = 30;
     float stunDuration = 5f;
 
+    float attackCD = 1f;
+    float attackCurrentCD;
+
     SpriteRenderer img;
     Rigidbody2D rb2D;
+    Animator animator;
     Player player;
     FlashLight flashLight;
 
@@ -25,6 +29,7 @@ public class Enemy : MonoBehaviour
         flashLight = player.flashLight;
         img = GetComponent<SpriteRenderer>();
         rb2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -33,6 +38,14 @@ public class Enemy : MonoBehaviour
             angry = true;
         if (angry && !stunned)
             Aggro();
+        if (attackCurrentCD > 0)
+            attackCurrentCD -= Time.deltaTime;
+        if (player.transform.position.x < transform.position.x)
+            img.flipX = true;
+        else
+            img.flipX = false;
+        // if (attackCurrentCD <= 0)
+        //     animator.SetBool("Idle", false);
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -64,7 +77,7 @@ public class Enemy : MonoBehaviour
             rb2D.AddForce(Vector2.down * 10, ForceMode2D.Impulse);
             return;
         }
-        if (Vector2.Distance(transform.position, player.transform.position) < 1)
+        if (Vector2.Distance(transform.position, player.transform.position) < 2.4)
             Attack();
         else
             Charge();
@@ -72,18 +85,25 @@ public class Enemy : MonoBehaviour
 
     void Charge()
     {
+        animator.SetBool("Idle", false);
+        animator.SetBool("Running", true);
         rb2D.velocity = new Vector2(0, rb2D.velocity.y);
         float move = 4;
         if (player.transform.position.x < transform.position.x)
-            move  *= -1;
-        rb2D.AddForce(Vector2.right * move  * 60f * Time.deltaTime, ForceMode2D.Impulse);
+            move *= -1;
+        rb2D.AddForce(Vector2.right * move * 60f * Time.deltaTime, ForceMode2D.Impulse);
     }
 
     void Attack()
     {
-        if (attacking)
+        animator.SetBool("Idle", false);
+        animator.SetBool("Running", false);
+        rb2D.velocity = new Vector2(0, rb2D.velocity.y);
+        if (attackCurrentCD > 0)
             return;
-        attacking = true;
+        attackCurrentCD = attackCD;
+        player.TakeDamage(damage);
+        animator.SetBool("Attacking", true);
         //declencher l'animation attacking puis apres l'attaue + la pause de 1 sec de vide apres l'attaque le state machine behaviour le remet a false
     }
 
@@ -103,13 +123,12 @@ public class Enemy : MonoBehaviour
         img.color = new Color(img.color.r, img.color.g, img.color.b, 1);
     }
 
-    void OnTriggerEnter2D(Collider2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.tag == "Ground")
+        if (col.gameObject.tag == "Ground")
         {
             rb2D.velocity = new Vector2(0, 0);
             onCeiling = false;
-            Debug.Log("hitting ground");
         }
     }
 

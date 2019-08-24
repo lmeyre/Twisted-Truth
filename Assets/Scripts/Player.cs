@@ -7,18 +7,22 @@ public class Player : MonoBehaviour
     public static Player instance;
     public FlashLight flashLight;
     public GameObject enemiesHolder;
+    public SpriteRenderer head;
 
     float speed = 5f;
     [HideInInspector]public Transform checkPoint;
 
     [HideInInspector]public bool active = true;// if can move hit, use light etc
     Rigidbody2D rb2D;
-
+    SpriteRenderer sprite;
+    Animator animator;
 
     void Awake()
     {
         instance = this;
         rb2D = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     void Start()
@@ -38,6 +42,18 @@ public class Player : MonoBehaviour
     void Move()
     {
         float movement = Input.GetAxis("Horizontal") * speed;
+        if (movement < 0)
+        {
+            sprite.flipX = true;
+            animator.SetBool("Running", true);
+        }
+        else if (movement > 0)
+        {
+            sprite.flipX = false;
+            animator.SetBool("Running", true);
+        }
+        else
+            animator.SetBool("Running", false);
 
         rb2D.AddForce(Vector2.right * movement * 60f * Time.deltaTime, ForceMode2D.Impulse);
         //rb2D.MovePosition(rb2D.position  + Vector2.right * movement * Time.deltaTime);
@@ -71,4 +87,5 @@ public class Player : MonoBehaviour
         else if (col.gameObject.tag == "CheckPoint")
             checkPoint = col.transform;
     }
+
 }

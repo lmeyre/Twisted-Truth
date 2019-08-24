@@ -8,6 +8,7 @@ TagManager:
   - Light
   - Enemy
   - CheckPoint
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - 
   - 
   - IgnoreEachOther
-  - FlashLightReset
+  - 
   - Props
   - 
   - 
@@ -44,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BlockerVision
+    uniqueID: 1568265207
     locked: 0
