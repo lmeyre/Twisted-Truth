@@ -12,8 +12,8 @@ public class FlashLight : MonoBehaviour
     public SpriteRenderer hand;
 
     [HideInInspector]public float battery;
-    float cellValue = 15f;
-    [HideInInspector]public float maxBattery = 30f;
+    float cellValue = 10f;
+    [HideInInspector]public float maxBattery = 50f;
     [HideInInspector]public bool Focusing;
     [HideInInspector]public bool crRunning;
     bool readyToStop;

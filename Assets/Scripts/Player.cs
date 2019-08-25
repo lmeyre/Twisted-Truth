@@ -99,7 +99,6 @@ public class Player : MonoBehaviour
 	{
 		float i = 1f;
 		SpriteRenderer[] sprites = new SpriteRenderer[] {GetComponent<SpriteRenderer>(), head, handLamp, katana.GetComponent<SpriteRenderer>()};
-         
 		while (i > 0)
 		{
             foreach(SpriteRenderer spriteX in sprites)

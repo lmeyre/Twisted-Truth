@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [HideInInspector] public bool stunned;
-    public int damage;
+    [HideInInspector]public bool stunned;
+    [HideInInspector]public int damage = 5;
     public float aggroRange;
     public bool aggroOnBaseLight;
     public bool onCeiling;

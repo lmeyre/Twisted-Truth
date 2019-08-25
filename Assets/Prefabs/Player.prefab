@@ -718,7 +718,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7161887171648912464}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5999999, y: 1.08, z: 0}
+  m_LocalPosition: {x: 0.894, y: 0.979, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 260712118339604048}
@@ -859,6 +859,7 @@ MonoBehaviour:
   head: {fileID: 6652212995269809729}
   handLamp: {fileID: 2257651209939344527}
   katana: {fileID: 3194753811735743664}
+  camera: {fileID: 0}
   headIdle: {fileID: 4302978888447469950}
   headRun: {fileID: 9120315556699124948}
   checkPoint: {fileID: 0}
