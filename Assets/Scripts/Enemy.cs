@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour
                 angry = true;
             Color col = img.color;
             img.color = new Color(col.r, col.g, col.b, col.a += 0.0060f);
-            if (col.a >= 0.7)
+            if (col.a >= 0.9)
                 GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.None;
         }
         if (img.color.a >= 1)
@@ -158,7 +158,9 @@ public class Enemy : MonoBehaviour
             StopCoroutine(damageAnim);
         damageAnim = StartCoroutine("DamageAnimation");
         if (hp <= 0)
-            Destroy(gameObject);
+        {
+            animator.SetBool("Dead", true);
+        }
     }
 
     IEnumerator DamageAnimation()
