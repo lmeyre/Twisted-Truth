@@ -19,6 +19,7 @@ public class MonsterAttack : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        Player.instance.TakeDamage(animator.GetComponent<Enemy>().damage);
         animator.SetBool("Idle", true);
         animator.SetBool("Attacking", false);
     }

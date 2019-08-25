@@ -41,9 +41,9 @@ public class Enemy : MonoBehaviour
             Aggro();
         if (attackCurrentCD > 0)
             attackCurrentCD -= Time.deltaTime;
-        if (player.transform.position.x < transform.position.x)
+        if (player.transform.position.x < transform.position.x && !stunned)
             img.flipX = true;
-        else
+        else if (!stunned)
             img.flipX = false;
         // if (attackCurrentCD <= 0)
         //     animator.SetBool("Idle", false);
@@ -105,7 +105,6 @@ public class Enemy : MonoBehaviour
         if (attackCurrentCD > 0)
             return;
         attackCurrentCD = attackCD;
-        player.TakeDamage(damage);
         animator.SetBool("Attacking", true);
         //declencher l'animation attacking puis apres l'attaue + la pause de 1 sec de vide apres l'attaque le state machine behaviour le remet a false
     }

@@ -6,6 +6,8 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform player;
     Vector3 shake;
+    Vector3 mouseOffset;
+    float offsetStrenght = 7;
 
     void Start()
     {
@@ -14,7 +16,12 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        transform.position = player.position + new Vector3(0, 5, -10) + shake;
+        mouseOffset = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        mouseOffset.x =  Mathf.Clamp(mouseOffset.x, 0f, 1f);// to avoid going out of screen with mouse and still looking more far
+        mouseOffset.x = mouseOffset.x - 0.5f;
+        mouseOffset.x *= offsetStrenght;
+
+        transform.position = player.position + new Vector3(0, 5, -10) + shake + new Vector3(mouseOffset.x, 0, 0);
     }
 
     public IEnumerator ShakeScreen(float duration, float magnitude)

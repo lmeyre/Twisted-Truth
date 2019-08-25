@@ -1186,6 +1186,11 @@ PrefabInstance:
       propertyPath: damage
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 775284722397950517, guid: 877cfdf15f0a3e24a92139d115308d91,
+        type: 3}
+      propertyPath: aggroOnBaseLight
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 877cfdf15f0a3e24a92139d115308d91, type: 3}
 --- !u!1001 &5384090907796058740
@@ -1334,10 +1339,55 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 519420030}
+    - target: {fileID: 1009681521531794754, guid: 1c489312937c8534ab2ed8fa7a5af552,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1009681521531794754, guid: 1c489312937c8534ab2ed8fa7a5af552,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1009681521531794754, guid: 1c489312937c8534ab2ed8fa7a5af552,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1009681521531794754, guid: 1c489312937c8534ab2ed8fa7a5af552,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1009681521531794754, guid: 1c489312937c8534ab2ed8fa7a5af552,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1009681521531794754, guid: 1c489312937c8534ab2ed8fa7a5af552,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1009681521531794754, guid: 1c489312937c8534ab2ed8fa7a5af552,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.17
+      objectReference: {fileID: 0}
     - target: {fileID: 3240416390622071075, guid: 1c489312937c8534ab2ed8fa7a5af552,
         type: 3}
       propertyPath: batteryBar
       value: 
       objectReference: {fileID: 820036715}
+    - target: {fileID: 8604979464629808912, guid: 1c489312937c8534ab2ed8fa7a5af552,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604979464629808912, guid: 1c489312937c8534ab2ed8fa7a5af552,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.07
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c489312937c8534ab2ed8fa7a5af552, type: 3}
