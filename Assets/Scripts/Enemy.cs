@@ -110,8 +110,8 @@ public class Enemy : MonoBehaviour
     IEnumerator Stunning()
     {
         stunned = true;
+        animator.SetBool("Stun", true);
         rb2D.velocity = Vector2.zero;
-        img.color = Color.red;
         float time = stunDuration;
         while (time > 0)
         {
@@ -119,8 +119,8 @@ public class Enemy : MonoBehaviour
             yield return null;
         }
         stunned = false;
-        img.color = Color.white;
-        img.color = new Color(img.color.r, img.color.g, img.color.b, 1);
+        img.color = new Color(img.color.r, img.color.g, img.color.b, 0.80f);
+        animator.SetBool("Stun", false);
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -137,4 +137,28 @@ public class Enemy : MonoBehaviour
 		Gizmos.color = Color.yellow;
 		Gizmos.DrawWireSphere(transform.position, aggroRange);
     }
+
+    public void TakeDamage()
+    {
+        if (!stunned)
+            return;
+        hp -= 20;
+        StopAllCoroutines();
+        StartCoroutine("DamageAnimation");
+        if (hp <= 0)
+            Destroy(gameObject);
+    }
+
+    IEnumerator DamageAnimation()
+	{
+		float i = 1f;
+		SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+		while (i > 0)
+		{
+			sprite.color = Color.Lerp(Color.white, Color.red, Mathf.PingPong(Time.time * 5, 1));
+			i -= Time.deltaTime;
+			yield return null;
+		}
+		sprite.color = Color.white;
+	}
 }

@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KatanaEndStrike1 : StateMachineBehaviour
+public class KatanaIdle : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        //if (animator.GetComponent<)
+        animator.GetComponent<BoxCollider2D>().enabled = false;
+        animator.transform.position =  animator.GetComponent<Katana>().idleKatanaPos.position;
+        // Debug.Log("recuding");
+        // float reverse = 1f;
+        // if (animator.GetComponent<SpriteRenderer>().flipX)
+        //     reverse = -1f;
+        // animator.transform.position = new Vector2(animator.transform.position.x - Globals.katanaOffset * reverse, animator.transform.position.y);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -17,10 +23,10 @@ public class KatanaEndStrike1 : StateMachineBehaviour
     //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        animator.SetBool("Attacking", false);
-    }
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

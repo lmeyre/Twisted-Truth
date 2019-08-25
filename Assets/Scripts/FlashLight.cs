@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FlashLight : MonoBehaviour
 {
     public Player player;
     public Sprite baseLight;
     public Sprite focusedLight;
+    public Slider batteryBar;
 
     [HideInInspector]public float battery;
     float cellValue = 15f;
-    [HideInInspector]public float startingBattery = 30f;
+    [HideInInspector]public float maxBattery = 30f;
     [HideInInspector]public bool Focusing;
     [HideInInspector]public bool crRunning;
     bool readyToStop;
@@ -30,7 +32,8 @@ public class FlashLight : MonoBehaviour
 
     void Start()
     {
-        battery = startingBattery;;
+        battery = maxBattery;
+        batteryBar.value = battery / maxBattery;
     }
 
     void Update()
@@ -75,11 +78,13 @@ public class FlashLight : MonoBehaviour
         while (Focusing && battery > 0)
         {
             battery -= 0.03f;
+            batteryBar.value = battery / maxBattery;
             yield return null;
         }
         animator.SetBool("Focusing", false);
         if (battery <= 0)
             player.OnDeath();
+        batteryBar.value = battery / maxBattery;
         Reset();
     }
 
@@ -99,5 +104,8 @@ public class FlashLight : MonoBehaviour
     public void CellPickUp()
     {
         battery += cellValue;
+        if (battery > maxBattery)
+            battery = maxBattery;
+        batteryBar.value = battery / maxBattery;
     }
 }

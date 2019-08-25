@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        //katana.transform.position = new Vector2(katana.transform.position.x + Globals.katanaOffset, katana.transform.position.y);
         // Debug.Log(rb2D.velocity);
         // rb2D.AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
         // Debug.Log(rb2D.velocity);
@@ -86,24 +87,14 @@ public class Player : MonoBehaviour
 
     public void OnDeath()
     {
-        flashLight.battery = flashLight.startingBattery;
+        flashLight.battery = flashLight.maxBattery / 3;
+        flashLight.batteryBar.value = flashLight.battery / flashLight.maxBattery;
         transform.position = checkPoint.position;
         flashLight.Reset();
         foreach(Enemy enemy in enemiesHolder.transform.GetComponentsInChildren<Enemy>())
         {
             enemy.angry = false;
         }
-    }
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.tag == "Cells")
-        {
-            Destroy(col.gameObject);
-            flashLight.CellPickUp();
-        }
-        else if (col.gameObject.tag == "CheckPoint")
-            checkPoint = col.transform;
     }
 
     void Attack()
