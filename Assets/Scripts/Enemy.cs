@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     float hp = 30;
     float stunDuration = 5f;
 
-    float attackCD = 1f;
+    float attackCD = 1.7f;
     float attackCurrentCD;
 
     SpriteRenderer img;
@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     Animator animator;
     Player player;
     FlashLight flashLight;
+    Coroutine damageAnim;
 
     void Start()
     {
@@ -77,6 +78,8 @@ public class Enemy : MonoBehaviour
             rb2D.AddForce(Vector2.down * 10, ForceMode2D.Impulse);
             return;
         }
+        if (attackCurrentCD > 0)
+            return;
         if (Vector2.Distance(transform.position, player.transform.position) < 2.4)
             Attack();
         else
@@ -143,15 +146,16 @@ public class Enemy : MonoBehaviour
         if (!stunned)
             return;
         hp -= 20;
-        StopAllCoroutines();
-        StartCoroutine("DamageAnimation");
+        if (damageAnim != null)
+            StopCoroutine(damageAnim);
+        damageAnim = StartCoroutine("DamageAnimation");
         if (hp <= 0)
             Destroy(gameObject);
     }
 
     IEnumerator DamageAnimation()
 	{
-		float i = 1f;
+		float i = 0.8f;
 		SpriteRenderer sprite = GetComponent<SpriteRenderer>();
 		while (i > 0)
 		{

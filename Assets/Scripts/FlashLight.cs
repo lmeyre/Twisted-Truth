@@ -9,6 +9,7 @@ public class FlashLight : MonoBehaviour
     public Sprite baseLight;
     public Sprite focusedLight;
     public Slider batteryBar;
+    public SpriteRenderer hand;
 
     [HideInInspector]public float battery;
     float cellValue = 15f;
@@ -22,6 +23,7 @@ public class FlashLight : MonoBehaviour
     Animator animator;
     public PolygonCollider2D baseCol;
     public PolygonCollider2D focusCol;
+
 
     void Awake()
     {
@@ -42,19 +44,28 @@ public class FlashLight : MonoBehaviour
         float AngleRad = Mathf.Atan2(lookAt.y - transform.position.y, lookAt.x - transform.position.x);
         float AngleDeg = (180 / Mathf.PI) * AngleRad;
         transform.rotation = Quaternion.Euler(0, 0, AngleDeg);
+       //Debug.Log(Focusing + " player activ = " + player.active);
         if (Input.GetMouseButtonDown(1) && player.active && !Focusing)
             FocusLight();
-        else if (Input.GetMouseButtonUp(1))
+        else if (Input.GetMouseButtonUp(1) && Focusing == true)
+        {
             readyToStop = true;
+        }
         if (readyToStop && crRunning)
         {
             Focusing = false;
             readyToStop = false;
         }
         if (AngleDeg <= 85 && AngleDeg >= -95)
+        {
             player.head.flipX = false;
+           // player.handLamp.flipX = false;
+        }
         else
+        {
             player.head.flipX = true;
+          //  player.handLamp.flipX = true;
+        }
         // if (GetComponent<PolygonCollider2D>().isTrigger == false)
         //     GetComponent<PolygonCollider2D>().isTrigger = true;
     }
@@ -85,6 +96,7 @@ public class FlashLight : MonoBehaviour
         if (battery <= 0)
             player.OnDeath();
         batteryBar.value = battery / maxBattery;
+        Focusing = false;
         Reset();
     }
 

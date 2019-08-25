@@ -8,7 +8,9 @@ public class Player : MonoBehaviour
     public FlashLight flashLight;
     public GameObject enemiesHolder;
     public SpriteRenderer head;
+    public SpriteRenderer handLamp;
     public Animator katana;
+    public CameraFollow camera;
 
     public Transform headIdle;
     public Transform headRun;
@@ -20,6 +22,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb2D;
     SpriteRenderer sprite;
     Animator animator;
+    Coroutine damageAnim;
 
     void Awake()
     {
@@ -55,6 +58,7 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
             flashLight.transform.localScale = new Vector3(-1, 1, 1);
             head.transform.localScale = new Vector3(-1, 1, 1);
+            //handLamp.transform.localScale = new Vector3(-1, 1, 1);
             animator.SetBool("Running", true);
             head.transform.position = headRun.position;
         }
@@ -64,6 +68,7 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
             head.transform.localScale = new Vector3(1, 1, 1);
             flashLight.transform.localScale = new Vector3(1, 1, 1);
+            //handLamp.transform.localScale = new Vector3(1, 1, 1);
             animator.SetBool("Running", true);
             head.transform.position = headRun.position;
         }
@@ -81,16 +86,36 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         flashLight.battery -= damage;
+        if (damageAnim != null)
+            StopCoroutine(damageAnim);
+        StartCoroutine(camera.ShakeScreen(1f, 0.07f));
+        damageAnim = StartCoroutine("DamageAnimation");
         if (flashLight.battery <= 0)
             OnDeath();
+        flashLight.batteryBar.value = flashLight.battery / flashLight.maxBattery;
     }
+
+    IEnumerator DamageAnimation()
+	{
+		float i = 1f;
+		SpriteRenderer[] sprites = new SpriteRenderer[] {GetComponent<SpriteRenderer>(), head, handLamp, katana.GetComponent<SpriteRenderer>()};
+         
+		while (i > 0)
+		{
+            foreach(SpriteRenderer spriteX in sprites)
+			    spriteX.color = Color.Lerp(Color.white, Color.red, Mathf.PingPong(Time.time * 5, 1));
+			i -= Time.deltaTime;
+			yield return null;
+		}
+        foreach(SpriteRenderer spriteX in sprites)
+		    spriteX.color = Color.white;
+	}
 
     public void OnDeath()
     {
         flashLight.battery = flashLight.maxBattery / 3;
         flashLight.batteryBar.value = flashLight.battery / flashLight.maxBattery;
         transform.position = checkPoint.position;
-        flashLight.Reset();
         foreach(Enemy enemy in enemiesHolder.transform.GetComponentsInChildren<Enemy>())
         {
             enemy.angry = false;
