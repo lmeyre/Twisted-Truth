@@ -21,7 +21,7 @@ public class CameraFollow : MonoBehaviour
         mouseOffset.x = mouseOffset.x - 0.5f;
         mouseOffset.x *= offsetStrenght;
 
-        transform.position = player.position + new Vector3(0, 5, -10) + shake + new Vector3(mouseOffset.x, 0, 0);
+        transform.position = player.position + new Vector3(0, 3, -10) + shake + new Vector3(mouseOffset.x, 0, 0);
     }
 
     public IEnumerator ShakeScreen(float duration, float magnitude)

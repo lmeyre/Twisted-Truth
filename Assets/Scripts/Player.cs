@@ -10,14 +10,13 @@ public class Player : MonoBehaviour
     public SpriteRenderer head;
     public SpriteRenderer handLamp;
     public Animator katana;
-    public CameraFollow camera;
+    public CameraFollow cam;
 
     public Transform headIdle;
     public Transform headRun;
 
     float speed = 5f;
     [HideInInspector]public Transform checkPoint;
-
     [HideInInspector]public bool active = true;// if can move hit, use light etc
     Rigidbody2D rb2D;
     SpriteRenderer sprite;
@@ -34,10 +33,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        //katana.transform.position = new Vector2(katana.transform.position.x + Globals.katanaOffset, katana.transform.position.y);
-        // Debug.Log(rb2D.velocity);
-        // rb2D.AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
-        // Debug.Log(rb2D.velocity);
+        
     }
 
     void Update()
@@ -88,7 +84,7 @@ public class Player : MonoBehaviour
         flashLight.battery -= damage;
         if (damageAnim != null)
             StopCoroutine(damageAnim);
-        StartCoroutine(camera.ShakeScreen(1f, 0.07f));
+        StartCoroutine(cam.ShakeScreen(1f, 0.07f));
         damageAnim = StartCoroutine("DamageAnimation");
         if (flashLight.battery <= 0)
             OnDeath();

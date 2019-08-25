@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public float aggroRange;
     public bool aggroOnBaseLight;
     public bool onCeiling;
+    public bool ambushing;
 
     [HideInInspector]public bool angry;
     float hp = 30;
@@ -31,6 +32,10 @@ public class Enemy : MonoBehaviour
         img = GetComponent<SpriteRenderer>();
         rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        if (onCeiling)
+            animator.SetBool("OnCeiling", true);
+        else if (ambushing)
+            animator.SetBool("Ambushing", true);
     }
 
     void Update()
@@ -64,7 +69,9 @@ public class Enemy : MonoBehaviour
             if (!angry)
                 angry = true;
             Color col = img.color;
-            img.color = new Color(col.r, col.g, col.b, col.a += 0.0075f);
+            img.color = new Color(col.r, col.g, col.b, col.a += 0.0060f);
+            if (col.a >= 0.7)
+                GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.None;
         }
         if (img.color.a >= 1)
             StartCoroutine("Stunning");
@@ -72,6 +79,8 @@ public class Enemy : MonoBehaviour
 
     void Aggro()
     {
+        animator.SetBool("OnCeiling", false);
+        animator.SetBool("Ambushing", false);
         if (onCeiling)
         {
             rb2D.velocity = Vector2.zero;

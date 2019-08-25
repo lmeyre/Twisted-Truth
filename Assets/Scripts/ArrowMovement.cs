@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ArrowMovement : MonoBehaviour
 {
-    public float speed = 4f;
-    public float length = 0.5f;  //length is the difference between min y to max y.
+    float speed = 2f;
+    float length = 0.5f;  //length is the difference between min y to max y.
     Vector3 origin;
 
     void Start()
