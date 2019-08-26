@@ -9,6 +9,7 @@ public class CameraFollow : MonoBehaviour
     Vector3 mouseOffset;
     float offsetStrenght = 7;
 
+
     void Start()
     {
         shake = new Vector3();

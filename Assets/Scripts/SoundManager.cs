@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip monsterDeath;
     public AudioClip monsterAggro;
     public AudioClip monsterAttack;
+    public AudioClip monsterStun;
 
     public AudioClip playerAttack1;
     public AudioClip playerAttack2;
