@@ -27,8 +27,8 @@ public class Stairs : MonoBehaviour
     {
         linkedStair.GetComponent<Stairs>().ready = false;
         StartCoroutine(linkedStair.GetComponent<Stairs>().ReadySoon());
-        StartCoroutine(FadeIn(currentMask));
-        StartCoroutine(FadeOut(linkedStair.GetComponent<Stairs>().currentMask));
+        //StartCoroutine(FadeIn(currentMask));
+        //StartCoroutine(FadeOut(linkedStair.GetComponent<Stairs>().currentMask));
         StartCoroutine("MovePlayer");
     }
 
