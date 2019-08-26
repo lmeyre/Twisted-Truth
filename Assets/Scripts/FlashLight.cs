@@ -88,7 +88,7 @@ public class FlashLight : MonoBehaviour
         crRunning = true;
         while (Focusing && battery > 0)
         {
-            battery -= 0.03f;
+            battery -= 0.02f;
             batteryBar.value = battery / maxBattery;
             yield return null;
         }
