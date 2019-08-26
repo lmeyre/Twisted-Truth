@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public Transform headIdle;
     public Transform headRun;
 
-    float speed = 5f;
+    float speed = 7f;
     [HideInInspector]public Transform checkPoint;
     [HideInInspector]public bool active = true;// if can move hit, use light etc
     Rigidbody2D rb2D;
