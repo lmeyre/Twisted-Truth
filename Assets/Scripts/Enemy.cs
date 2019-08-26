@@ -41,7 +41,10 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         if (!angry && Vector2.Distance(transform.position, player.transform.position) <= aggroRange)
+        {
             angry = true;
+            SoundManager.instance.PlaySound(SoundManager.instance.monsterAggro);
+        }
         if (angry && !stunned)
             Aggro();
         if (attackCurrentCD > 0)
@@ -63,11 +66,17 @@ public class Enemy : MonoBehaviour
             if (other.gameObject.Equals(flashLight.gameObject) && !flashLight.Focusing)// si c'est la flashlight on verifie si elle est focus sinon ca marche direct
             {
                 if (!angry && aggroOnBaseLight)
+                {
                     angry = true;// si c'est la lampe, qu'elle focus pas et qu'on a un mob qui aggro sur baselight
+                    SoundManager.instance.PlaySound(SoundManager.instance.monsterAggro);
+                }
                 return ;
             }
             if (!angry)
+            {
                 angry = true;
+                SoundManager.instance.PlaySound(SoundManager.instance.monsterAggro);
+            }
             Color col = img.color;
             img.color = new Color(col.r, col.g, col.b, col.a += 0.0060f);
             if (col.a >= 0.9)

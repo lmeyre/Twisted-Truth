@@ -22,6 +22,7 @@ public class KatanaEndStrike1 : StateMachineBehaviour
         animator.SetBool("Attacking", false);
         animator.GetComponent<BoxCollider2D>().enabled = true;
         animator.transform.position =  animator.GetComponent<Katana>().attackKatanaPos.position;
+        SoundManager.instance.PlaySound(SoundManager.instance.playerAttack1);
         // Debug.Log("augmenting");
         // float reverse = 1f;
         // if (animator.GetComponent<SpriteRenderer>().flipX)

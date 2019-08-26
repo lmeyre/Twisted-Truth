@@ -67,6 +67,8 @@ public class Stairs : MonoBehaviour
 
     IEnumerator MovePlayer()
     {
+        SoundManager.instance.soundSource.clip = SoundManager.instance.stairCase;
+        SoundManager.instance.soundSource.Play();
         player.active = false;
         player.GetComponent<Collider2D>().enabled = false;
         player.GetComponent<SpriteRenderer>().enabled = false;
@@ -91,5 +93,6 @@ public class Stairs : MonoBehaviour
         player.flashLight.GetComponent<SpriteMask>().enabled = true;
         player.handLamp.enabled = true;
         player.GetComponent<Rigidbody2D>().gravityScale = 1;
+        SoundManager.instance.soundSource.Stop();
     }
 }

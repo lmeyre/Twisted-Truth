@@ -8,6 +8,7 @@ public class MonsterAttack : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //animator.SetBool("Attacking", false);
+        SoundManager.instance.PlaySound(SoundManager.instance.monsterAttack);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

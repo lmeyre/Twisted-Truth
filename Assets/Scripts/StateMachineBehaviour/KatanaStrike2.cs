@@ -9,6 +9,8 @@ public class KatanaStrike2 : StateMachineBehaviour
     {
         animator.GetComponent<Collider2D>().enabled = false;
         animator.GetComponent<Collider2D>().enabled = true;
+        animator.SetBool("Attacking", false);
+        SoundManager.instance.PlaySound(SoundManager.instance.playerAttack2);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
