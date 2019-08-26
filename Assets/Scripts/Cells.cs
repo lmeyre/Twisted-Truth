@@ -9,6 +9,7 @@ public class Cells : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             Player.instance.flashLight.CellPickUp();
+            SoundManager.instance.PlaySound(SoundManager.instance.lightOn);
             Destroy(gameObject);
         }
     }
