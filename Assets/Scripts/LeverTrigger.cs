@@ -59,7 +59,7 @@ public class LeverTrigger : MonoBehaviour
             lightRender.color = c;
             yield return null;
         }
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3);
         //player die
         transformedPlayer.GetComponent<Animator>().SetBool("Dead", true);
 
