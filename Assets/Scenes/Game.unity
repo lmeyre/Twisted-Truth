@@ -7632,7 +7632,7 @@ PrefabInstance:
     - target: {fileID: 775284722397950517, guid: 877cfdf15f0a3e24a92139d115308d91,
         type: 3}
       propertyPath: aggroRange
-      value: 15.5
+      value: 11.97
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 877cfdf15f0a3e24a92139d115308d91, type: 3}
